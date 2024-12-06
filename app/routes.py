@@ -7,11 +7,15 @@ from app.services.translator_gcp import Translator_gcp
 import time
 import logging
 import os 
+from azure.monitor.opentelemetry import configure_azure_monitor
+from opentelemetry import trace
 
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
 output_dir = os.getenv("FLASK_OUTPUT_DIR", "/app/outputs") ## Default for local tests:"/app/outputs" ||  "/home" for Linux App Service Web App
+
+configure_azure_monitor()
 
 @app.route('/')
 def home():
