@@ -57,7 +57,7 @@ def transcribe_video():
             content = scraper.html_process()
         except Exception as e:
             logging.error(f"Error in scraper: {e}", exc_info=True)
-            return jsonify({"error": f"Error in scraper: {e}"}), 500
+            return jsonify({"error": f"Error in scraper: {e}"}), 400
 
         # Translation (Azure)
         if data.get("translator_api") == "azure":
@@ -74,7 +74,7 @@ def transcribe_video():
                             content_en.append({'type': element['type'], 'content': translated_text})
                         except Exception as e:
                             logging.error(f"Error in Azure translation: {e}", exc_info=True)
-                            return jsonify({"error": f"Error in Azure translation: {e}"}), 500
+                            return jsonify({"error": f"Error in Azure translation: {e}"}), 400
                     else:
                         content_en.append(element)  # Add images as-is
             else:
@@ -96,7 +96,7 @@ def transcribe_video():
                             content_en.append({'type': element['type'], 'content': translated_text})
                         except Exception as e:
                             logging.error(f"Error in Google translation: {e}", exc_info=True)
-                            return jsonify({"error": f"Error in Google translation: {e}"}), 500
+                            return jsonify({"error": f"Error in Google translation: {e}"}), 400
                     else:
                         content_en.append(element)  # Add images as-is
             else:
@@ -117,10 +117,10 @@ def transcribe_video():
             saved_file = converter.save_to_markdown_file(markdown_content)
         except Exception as e:
             logging.error(f"Error in Markdown formatting: {e}", exc_info=True)
-            return jsonify({"error": f"Error in Markdown formatting: {e}"}), 500
+            return jsonify({"error": f"Error in Markdown formatting: {e}"}), 400
 
         return send_file(saved_file, as_attachment=True)
 
     except Exception as e:
         logging.error(f"Unhandled exception: {e}", exc_info=True)
-        return jsonify({"error": f"An unexpected error occurred: {e}"}), 500
+        return jsonify({"error": f"An unexpected error occurred: {e}"}), 400
