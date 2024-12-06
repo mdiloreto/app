@@ -4,3 +4,6 @@ azure-ai-translation-document
 google-cloud-translate
 flask
 gunicorn
+azure-monitor-opentelemetry
+opentelemetry-api         
+opentelemetry-sdk         
