@@ -17,7 +17,11 @@ from opentelemetry.instrumentation.requests import RequestsInstrumentor
 logging.basicConfig(level=logging.DEBUG)
 output_dir = os.getenv("FLASK_OUTPUT_DIR", "/app/outputs") ## Default for local tests:"/app/outputs" ||  "/home" for Linux App Service Web App
 
-configure_azure_monitor(enable_live_metrics=True )
+InstrumentationKey = os.getenv("INSTRUMENTATION_KEY")
+configure_azure_monitor(
+    connection_string=InstrumentationKey,
+    enable_live_metrics=True
+)
 # Instrument your Flask app and HTTP requests
 FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()

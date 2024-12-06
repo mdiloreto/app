@@ -13,6 +13,7 @@ env:
   TEST_AZURE_CREDENTIALS: ${{ secrets.TEST_AZURE_CREDENTIALS }}
   TEST_ENDPOINT: ${{ vars.TEST_ENDPOINT }}
   TEST_URL: ${{ vars.TEST_URL }}
+  INSTRUMENTATION_KEY: ${{ secrets.INSTRUMENTATION_KEY}}
 
 jobs:
   unit-test:
