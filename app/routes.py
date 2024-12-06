@@ -15,7 +15,7 @@ from opentelemetry import trace
 logging.basicConfig(level=logging.DEBUG)
 output_dir = os.getenv("FLASK_OUTPUT_DIR", "/app/outputs") ## Default for local tests:"/app/outputs" ||  "/home" for Linux App Service Web App
 
-configure_azure_monitor()
+configure_azure_monitor(enable_live_metrics=True )
 
 @app.route('/')
 def home():
